@@ -56,6 +56,7 @@ class NdefWritePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.lightGreen,
         title: Text('Ndef - Write'),
       ),
       body: StreamBuilder<Iterable<WriteRecord>>(

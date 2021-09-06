@@ -15,6 +15,7 @@ class NdefRecordPage extends StatelessWidget {
     final info = NdefRecordInfo.fromNdef(record);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.lightGreen,
         title: Text('Record #$index'),
       ),
       body: ListView(

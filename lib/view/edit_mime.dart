@@ -27,7 +27,8 @@ class EditMimeModel with ChangeNotifier {
 
     final record = MimeRecord(
       type: typeController.text,
-      data: Uint8List.fromList(utf8.encode(dataController.text)),
+      veri: Uint8List.fromList(utf8.encode(dataController.text)),
+
     );
 
     return _repo.createOrUpdateWriteRecord(WriteRecord(
@@ -48,6 +49,7 @@ class EditMimePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Edit Mime'),
+        backgroundColor: Colors.lightGreen,
       ),
       body: Form(
         key: Provider.of<EditMimeModel>(context, listen: false).formKey,
@@ -67,12 +69,23 @@ class EditMimePage extends StatelessWidget {
               keyboardType: TextInputType.text,
               validator: (value) => value?.isNotEmpty != true ? 'Required' : null,
             ),
+
             SizedBox(height: 12),
+            TextFormField(
+              controller: Provider.of<EditMimeModel>(context, listen: false).dataController,
+              decoration: InputDecoration(labelText: 'İstenilen Yazı', helperText: ''),
+              keyboardType: TextInputType.text,
+              validator: (value) => value?.isNotEmpty != true ? 'Required' : null,
+            ),
+            SizedBox(height: 350),
             ElevatedButton(
               child: Text('Save'),
+
               onPressed: () => Provider.of<EditMimeModel>(context, listen: false).save()
-                .then((_) => Navigator.pop(context))
-                .catchError((e) => print('=== $e ===')),
+                  .then((_) => Navigator.pop(context))
+                  .catchError((e) => print('=== $e ===')),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.lightGreen,)
             ),
           ],
         ),

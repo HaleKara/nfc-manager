@@ -30,7 +30,7 @@ class EditExternalModel with ChangeNotifier {
     final record = ExternalRecord(
       domain: domainController.text,
       type: typeController.text,
-      data: Uint8List.fromList(utf8.encode(dataController.text)),
+      veri: Uint8List.fromList(utf8.encode(dataController.text)),
     );
 
     return _repo.createOrUpdateWriteRecord(WriteRecord(

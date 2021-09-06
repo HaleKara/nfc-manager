@@ -91,21 +91,21 @@ class WellknownUriRecord implements Record {
 }
 
 class MimeRecord implements Record {
-  MimeRecord({this.identifier, required this.type, required this.data});
+  MimeRecord({this.identifier, required this.type, required this.veri});
 
   final Uint8List? identifier;
 
   final String type;
 
-  final Uint8List data;
+  final Uint8List veri;
 
-  String get dataString => utf8.decode(data);
+  String get dataString => utf8.decode(veri);
 
   static MimeRecord fromNdef(NdefRecord record) {
     return MimeRecord(
       identifier: record.identifier,
       type: ascii.decode(record.type),
-      data: record.payload,
+      veri: record.payload,
     );
   }
 
@@ -115,7 +115,7 @@ class MimeRecord implements Record {
       typeNameFormat: NdefTypeNameFormat.media,
       type: Uint8List.fromList(ascii.encode(type)),
       identifier: identifier ?? Uint8List(0),
-      payload: data,
+      payload: veri,
     );
   }
 }
@@ -151,7 +151,7 @@ class AbsoluteUriRecord implements Record {
 }
 
 class ExternalRecord implements Record {
-  ExternalRecord({this.identifier, required this.domain, required this.type, required this.data});
+  ExternalRecord({this.identifier, required this.domain, required this.type, required this.veri});
 
   final Uint8List? identifier;
 
@@ -159,11 +159,11 @@ class ExternalRecord implements Record {
 
   final String type;
 
-  final Uint8List data;
+  final Uint8List veri;
 
   String get domainType => domain + (type.isEmpty ? '' : ':$type');
 
-  String get dataString => utf8.decode(data);
+  String get dataString => utf8.decode(veri);
 
   static ExternalRecord fromNdef(NdefRecord record) {
     final domainType = ascii.decode(record.type);
@@ -172,7 +172,7 @@ class ExternalRecord implements Record {
       identifier: record.identifier,
       domain: colonIndex < 0 ? domainType : domainType.substring(0, colonIndex),
       type: colonIndex < 0 ? '' : domainType.substring(colonIndex + 1),
-      data: record.payload,
+      veri: record.payload,
     );
   }
 
@@ -182,7 +182,7 @@ class ExternalRecord implements Record {
       typeNameFormat: NdefTypeNameFormat.nfcExternal,
       type: Uint8List.fromList(ascii.encode(domainType)),
       identifier: identifier ?? Uint8List(0),
-      payload: data,
+      payload: veri,
     );
   }
 }
